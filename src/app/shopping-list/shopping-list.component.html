@@ -3,6 +3,16 @@
     <app-shopping-edit>zzz</app-shopping-edit>
     <hr>
     <p>The list</p>
+    <ul class="list-group">
+      <a
+        href="#"
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let data of ingredients"
+      >
+      {{data.name}} {{ data.amount}}
+    </a>
+    </ul>
   </div>
 
 </div>
