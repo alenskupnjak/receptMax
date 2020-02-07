@@ -6,5 +6,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'receptMax';
+  title = 'Recepti';
+  usnimljeno = 'recept';
+
+
+  onNavigate(data: string) {
+   console.log('app.component.com - ' + data);
+   this.usnimljeno = data;
+
+  }
+
+
+
+
+
+
+
+
+
+
+
 }
