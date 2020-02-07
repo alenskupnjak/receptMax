@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Ingredient } from 'src/app/shared/ingredient.models';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingEditComponent implements OnInit {
 
+  @Output() namirnica = new EventEmitter<Ingredient>();
   constructor() { }
 
   ngOnInit() {
   }
 
+
+  dodajNamirnicu(name: string, amount: number) {
+    const novaNamirnica = new Ingredient(name, amount);
+    console.log(novaNamirnica);
+    this.namirnica.emit(novaNamirnica);
+  }
 }
