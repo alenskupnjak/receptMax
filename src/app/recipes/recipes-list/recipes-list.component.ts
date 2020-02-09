@@ -8,18 +8,21 @@ import { RecipeServise} from '../recipe.service';
   styleUrls: ['./recipes-list.component.css']
 })
 export class RecipesListComponent implements OnInit {
-  // @Output() odabraniRecept = new EventEmitter<Recipe>();
   recipes: Recipe [] = [];
-
+  rec: Recipe;
 
   constructor(private getRecipe: RecipeServise) { }
 
   ngOnInit() {
     this.recipes = this.getRecipe.getRecipes();
+    this.getRecipe.recipeSelected.subscribe(
+      (data: Recipe ) => {
+        console.log('Pokusno');
+        console.log(data);
+
+      }
+    )
   }
 
-  // onRecipeSelected(recipe: Recipe) {
-  //   this.odabraniRecept.emit(recipe);
-  // }
 
 }
