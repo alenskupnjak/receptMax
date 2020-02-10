@@ -27,7 +27,7 @@ export class RecipeServise {
 
   ];
 
- constructor(private slService: ShoppingListService ){
+ constructor(private slService: ShoppingListService ) {
  }
 
   getRecipes() {

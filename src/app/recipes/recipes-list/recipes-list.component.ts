@@ -21,7 +21,7 @@ export class RecipesListComponent implements OnInit {
         console.log(data);
 
       }
-    )
+    );
   }
 
 
