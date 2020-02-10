@@ -19,6 +19,7 @@ export class RecipesDetailComponent implements OnInit {
   }
 
   dodajShoppingListi() {
+    console.log(this.recipe.ingredients);
     this.recipeService.dodajNamirnicuShoppingListi(this.recipe.ingredients);
   }
 
