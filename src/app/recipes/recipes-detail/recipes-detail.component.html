@@ -39,7 +39,11 @@
 
 <div class="row">
   <div class="col-xs-12">
-    Namirnice
+   <ul class="list-group">
+      <li class="list-group-item"
+      *ngFor="let data of recipe.ingredients">
+      {{data.name}} - {{data.amount}}</li>
+   </ul>
   </div>
 </div>
 
