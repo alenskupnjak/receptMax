@@ -1,7 +1,10 @@
 import {Recipe} from '../recipes/recipe.model';
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.models';
+import { ShoppingListService } from '../shopping-list/shopping-list.services';
 
+
+@Injectable()
 export class RecipeServise {
 
   recipeSelected = new EventEmitter<Recipe>();
@@ -24,10 +27,16 @@ export class RecipeServise {
 
   ];
 
+ constructor(private slService: ShoppingListService ){
+ }
 
   getRecipes() {
     // slice radi kopiju polja, ne dira orginalno polje
     return this.recipes.slice();
+  }
+
+  dodajNamirnicuShoppingListi(ingredients: Ingredient[]) {
+    this.slService.addIngridients(ingredients);
   }
 
 }
