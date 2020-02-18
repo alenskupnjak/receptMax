@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+// verzija prva
+// import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,19 +8,18 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  @Output() aktivniMeni = new EventEmitter<string>();
+  // verzija prva
+  // @Output() aktivniMeni = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-
-  onSelect(feature: string) {
-    console.log('header.component.com - ' + feature)
-    this.aktivniMeni.emit(feature);
-
-  }
+  // verzija prva
+  // onSelect(feature: string) {
+  //   console.log('header.component.com - ' + feature);
+  //   this.aktivniMeni.emit(feature);
+  // }
 
 }
