@@ -18,12 +18,6 @@ export class RecipesListComponent implements OnInit {
 
   ngOnInit() {
     this.recipes = this.getRecipe.getRecipes();
-    this.getRecipe.recipeSelected.subscribe(
-      (data: Recipe ) => {
-        console.log('Pokusno');
-        console.log(data);
-      }
-    );
   }
 
   onNewRecipe() {

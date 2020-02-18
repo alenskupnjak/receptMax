@@ -1,12 +1,15 @@
-import {Recipe} from '../recipes/recipe.model';
+// import { Subject } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
+
+import {Recipe} from '../recipes/recipe.model';
 import { Ingredient } from '../shared/ingredient.models';
 import { ShoppingListService } from '../shopping-list/shopping-list.services';
 
 
 @Injectable()
 export class RecipeServise {
-  recipeSelected = new EventEmitter<Recipe>();
+  // recipeSelected = new Subject<Recipe>();
+  // recipeSelected = new EventEmitter<Recipe>(); stra verzija
 
   private recipes: Recipe [] = [
     new Recipe(' Hamby', ' Mali obrok',
