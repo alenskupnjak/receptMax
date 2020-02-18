@@ -1,15 +1,11 @@
 <div class="row">
+  <h1>app-recipes-list</h1>
     <div class="col-xs-12">
         <button class="btn btn-success">Novi Recept</button>
     </div>
 </div>
-<hr>
-
 <div class="row">
   <div class="col-xs-12">
-    <app-recipes-item
-    *ngFor="let data of recipes"
-    [receptDetalj]= data
-    ></app-recipes-item>
+    <app-recipes-item *ngFor="let recept of recipes" [receptDetalj]= recept></app-recipes-item>
   </div>
 </div>
