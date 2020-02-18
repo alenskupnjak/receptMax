@@ -11,6 +11,7 @@ import { Recipe } from '../../recipe.model';
 export class RecipesItemComponent implements OnInit {
 
  @Input() receptDetalj: Recipe;
+ @Input() index: number;
 
   // constructor(private recipeService: RecipeServise) { } VERZIJA 1
 

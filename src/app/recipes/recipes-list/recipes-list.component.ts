@@ -9,7 +9,7 @@ import { RecipeServise} from '../recipe.service';
 })
 export class RecipesListComponent implements OnInit {
   recipes: Recipe [] = [];
-  rec: Recipe;
+
 
   constructor(private getRecipe: RecipeServise) { }
 
@@ -19,10 +19,8 @@ export class RecipesListComponent implements OnInit {
       (data: Recipe ) => {
         console.log('Pokusno');
         console.log(data);
-
       }
     );
   }
-
 
 }
