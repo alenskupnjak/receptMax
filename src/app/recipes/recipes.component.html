@@ -7,9 +7,10 @@
 
 <hr>
   <div class="col-md-7">
-    <app-recipes-detail *ngIf="selektiraniRecept; else infoText" [recipe]="selektiraniRecept"></app-recipes-detail>
+    <router-outlet></router-outlet>
+    <!-- <app-recipes-detail *ngIf="selektiraniRecept; else infoText" [recipe]="selektiraniRecept"></app-recipes-detail>
            <ng-template #infoText>
              <p>Selektiraj jedan recept!</p>
-           </ng-template>
+           </ng-template>   verzij jedan-->
   </div>
 </div>

@@ -2,6 +2,7 @@ import {Recipe} from '../recipes/recipe.model';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.models';
 import { ShoppingListService } from '../shopping-list/shopping-list.services';
+import { TransformVisitor } from '@angular/compiler/src/render3/r3_ast';
 
 
 @Injectable()
@@ -24,6 +25,13 @@ export class RecipeServise {
       new Ingredient('luk', 4),
       new Ingredient('salata', 2)
     ]),
+    new Recipe(' Hamby ', ' mali obrok',
+    'https://cdn.pixabay.com/photo/2014/12/21/23/28/recipe-575434_960_720.png',
+    [
+      new Ingredient ('meso', 1),
+      new Ingredient('vegeta', 4),
+      new Ingredient('kruh', 2)
+    ])
 
   ];
 
@@ -33,6 +41,10 @@ export class RecipeServise {
   getRecipes() {
     // slice radi kopiju polja, ne dira orginalno polje
     return this.recipes.slice();
+  }
+
+  getRecipe(index: number) {
+    return this.recipes[index];
   }
 
   dodajNamirnicuShoppingListi(ingredients: Ingredient[]) {
