@@ -9,7 +9,7 @@ export class RecipeServise {
   recipeSelected = new EventEmitter<Recipe>();
 
   private recipes: Recipe [] = [
-    new Recipe(' A test 1', ' Opis recepta 1',
+    new Recipe(' Hamby', ' Mali obrok',
     'https://cdn.pixabay.com/photo/2018/10/31/12/37/healthy-food-3785722_960_720.jpg',
     [
       new Ingredient ('meat', 1),
