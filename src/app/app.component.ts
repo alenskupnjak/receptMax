@@ -10,11 +10,10 @@ export class AppComponent {
   usnimljeno = 'recept';
 
 
-  onNavigate(data: string) {
-   console.log('app.component.com - ' + data);
-   this.usnimljeno = data;
-
-  }
+  // onNavigate(data: string) {       verzija 1
+  //  console.log('app.component.com - ' + data);
+  //  this.usnimljeno = data;
+  // }
 
 
 
