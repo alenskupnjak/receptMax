@@ -18,14 +18,17 @@ export class ShoppingListService {
 
   addIngredient(data: Ingredient) {
     this.ingredients.push(data);
+    // The slice() method returns the selected elements in an array, as a new array object.
     // this.ingredientChanged.emit(this.ingredients.slice()); stara izvedba
     this.ingredientChanged.next(this.ingredients.slice());
   }
 
   addIngridients(ingridients: Ingredient[]) {
     this.ingredients.push(...ingridients);
+    console.log('to=');
     console.log(this.ingredients);
     // this.ingredientChanged.emit(this.ingredients.slice()); stara izvedba
+    // The slice() method returns the selected elements in an array, as a new array object.
     this.ingredientChanged.next(this.ingredients.slice());
   }
 

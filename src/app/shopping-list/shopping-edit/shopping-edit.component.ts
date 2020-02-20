@@ -1,6 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+// import { Component, OnInit, EventEmitter, Output } from '@angular/core';   stara izvedba
+import { Component, OnInit } from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.models';
 import { ShoppingListService } from '../shopping-list.services';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -9,7 +11,7 @@ import { ShoppingListService } from '../shopping-list.services';
 })
 export class ShoppingEditComponent implements OnInit {
 
-  @Output() namirnica = new EventEmitter<Ingredient>();
+  // @Output() namirnica = new EventEmitter<Ingredient>(); stara izvedba
 
   constructor(private shoppinglistService: ShoppingListService) { }
 
@@ -17,13 +19,19 @@ export class ShoppingEditComponent implements OnInit {
   }
 
 
-  dodajNamirnicu(name: string, amount: number) {
-    const novaNamirnica = new Ingredient(name, amount);
-    console.log(novaNamirnica);
+  onAddItem(form: FormControl) {
+    const value = form.value;
+    console.log(value);
+    const novaNamirnica = new Ingredient(value.name, value.amount);
     this.shoppinglistService.addIngredient(novaNamirnica);
   }
 
-  obrisiNamirnicu(name: string, amount: number) {
+  // dodajNamirnicu(name: string, amount: number) {stara izvedba
+  //   const novaNamirnica = new Ingredient(name, amount);
+  //   console.log(novaNamirnica);
+  //   this.shoppinglistService.addIngredient(novaNamirnica);
+  // }
 
+  obrisiNamirnicu(name: string, amount: number) {
   }
 }
