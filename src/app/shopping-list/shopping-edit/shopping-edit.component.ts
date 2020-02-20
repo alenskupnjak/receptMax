@@ -32,6 +32,4 @@ export class ShoppingEditComponent implements OnInit {
   //   this.shoppinglistService.addIngredient(novaNamirnica);
   // }
 
-  obrisiNamirnicu(name: string, amount: number) {
-  }
 }
