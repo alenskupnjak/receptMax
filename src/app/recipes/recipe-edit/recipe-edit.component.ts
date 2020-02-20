@@ -31,22 +31,27 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  onSubmit() {
+    console.log(this.recipeForm);
+  }
+
+
   private initForm() {
     let recipeName = '';
-    let recipeIagePath = '';
+    let recipeImagePath = '';
     let recipeDescription = '';
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name;
-      recipeIagePath = recipe.imagePath;
-      recipeDescription = recipe.descriprion;
+      recipeImagePath = recipe.imagePath;
+      recipeDescription = recipe.description;
     }
 
     this.recipeForm = new FormGroup({
       name: new FormControl(recipeName),
-      nameimagePath: new FormControl(recipeIagePath),
-      descriprion: new FormControl(recipeDescription)
+      nameImagePath: new FormControl(recipeImagePath),
+      description: new FormControl(recipeDescription)
     });
   }
 
