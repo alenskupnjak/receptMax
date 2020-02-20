@@ -1,9 +1,9 @@
 // import { Component, OnInit, EventEmitter, Output } from '@angular/core';   stara izvedba
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/shared/ingredient.models';
 import { ShoppingListService } from '../shopping-list.services';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -12,9 +12,11 @@ import { FormControl } from '@angular/forms';
 })
 export class ShoppingEditComponent implements OnInit, OnDestroy {
   // @Output() namirnica = new EventEmitter<Ingredient>(); stara izvedba
+  @ViewChild('f', {static: false}) slForm: NgForm;
   subscription: Subscription;
   editMode = false;
   editedItemNumber: number;
+  editedItem: Ingredient;
 
 
   constructor(private slService: ShoppingListService,
@@ -24,6 +26,11 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
    this.subscription = this.slService.startedEditing.subscribe((index: number) => {
     this.editMode = true;
     this.editedItemNumber = index;
+    this.editedItem = this.slService.getIngredient(index);
+    this.slForm.setValue({
+      name: this.editedItem.name,
+      amount: this.editedItem.amount
+    });
    });
 
   }

@@ -17,6 +17,10 @@ export class ShoppingListService {
     return this.ingredients.slice();
   }
 
+  getIngredient(index: number) {
+    return this.ingredients[index];
+  }
+
   addIngredient(data: Ingredient) {
     this.ingredients.push(data);
     // The slice() method returns the selected elements in an array, as a new array object.
