@@ -1,9 +1,8 @@
 <div class="row">
   <div class="col-xs-12">
     <p>app-shopping-edit</p>
-    <form  (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="row">
-
           <div class="col-sm-5 form-group">
             <label for="name">Naziv</label>
             <input
@@ -46,7 +45,6 @@
               <button class="btn btn-danger" type="button" (click)="onClear()">Obriši</button>
           	</div>
         </div>
-
     </form>
   </div>
 </div>

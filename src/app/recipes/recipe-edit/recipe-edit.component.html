@@ -3,8 +3,8 @@
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-xs-12">
-            <button type="submit" class="btn btn-success">Save</button>
-            <button type="button" class="btn btn-danger">Cancel</button>
+            <button type="submit" class="btn btn-success" style="margin-right: 10px;">Save</button>
+            <button type="button" class="btn btn-danger" >Cancel</button>
           </div>
 
           <div class="row">
@@ -53,9 +53,9 @@
             </div>
           </div>
 
-          <div class="row">
+
             <div class="col-xs-12" formArrayName="ingredients">
-              <div class="row" *ngFor="let ingridentCtrl of controls; let i = index" [formGroupName]="i">
+              <div class="row" *ngFor="let ingridentCtrl of controls; let i = index" [formGroupName]="i" style="margin-top: 10px;">
                 <div class="col-xs-8">
                   <input
                   type="text"
@@ -72,10 +72,17 @@
                  <button class="btn btn-danger">X</button>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <button
+                  type="button"
+                  class="btn btn-success"
+                  style="margin-top: 10px;"
+                  (click)="onAddIngridient()">Dodaj namirnicu</button>
+                </div>
+              </div>
+
             </div>
-          </div>
-
-
 
         </div>
     </form>
