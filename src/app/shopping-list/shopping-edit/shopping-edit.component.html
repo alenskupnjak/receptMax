@@ -38,9 +38,8 @@
               class="btn btn-success"
               type="submit"
               [disabled]="!f.valid">{{editMode ? 'Osvježi' : 'Dodaj'}}</button>
-
-              <button class="btn btn-danger" type="button" >Obriši</button>
-              <button class="btn btn-primary" type="button">Obriši polja</button>
+              <button class="btn btn-primary" type="button">Obriši namirnicu</button>
+              <button class="btn btn-danger" type="button" (click)="onClear()">Obriši</button>
           	</div>
         </div>
 
