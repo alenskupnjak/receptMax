@@ -37,7 +37,7 @@
               <button
               class="btn btn-success"
               type="submit"
-              [disabled]="!f.valid">Dodaj</button>
+              [disabled]="!f.valid">{{editMode ? 'Osvježi' : 'Dodaj'}}</button>
 
               <button class="btn btn-danger" type="button" >Obriši</button>
               <button class="btn btn-primary" type="button">Obriši polja</button>

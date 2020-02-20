@@ -10,28 +10,27 @@ import { ShoppingListService } from './shopping-list.services';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
-  ingredients: Ingredient [] = [];
-  private idChangeSub: Subscription;
+  sveNamirnice: Ingredient [] = [];
+  private promjenaListe: Subscription; // svaki puta kada se mijenja nesto na listi on je aktivan
 
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService) { }
 
   ngOnInit() {
-    this.ingredients = this.shoppingListService.getIngredients();
-    this.idChangeSub = this.shoppingListService.ingredientChanged.subscribe(
+    this.sveNamirnice = this.slService.listaSvihNamirnica();
+    this.promjenaListe = this.slService.namirnicaPromjenjena.subscribe(
       (data: Ingredient[]) => {
-        console.log(data);
-        this.ingredients = data;
+        this.sveNamirnice = data;
       }
     );
   }
 
   onEditItem(index: number) {
-    this.shoppingListService.startedEditing.next(index);
+    this.slService.startedEditing.next(index);
   }
 
   ngOnDestroy() {
-    this.idChangeSub.unsubscribe();
+    this.promjenaListe.unsubscribe();
   }
 
 

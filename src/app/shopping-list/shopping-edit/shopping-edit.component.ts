@@ -14,33 +14,36 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   // @Output() namirnica = new EventEmitter<Ingredient>(); stara izvedba
   @ViewChild('f', {static: false}) slForm: NgForm;
   subscription: Subscription;
-  editMode = false;
-  editedItemNumber: number;
-  editedItem: Ingredient;
+  editMode = false;  // dodano da bi definirali button
+  editedItemIndex: number;
+  namirnica: Ingredient;
 
 
   constructor(private slService: ShoppingListService,
             ) { }
 
   ngOnInit() {
-   this.subscription = this.slService.startedEditing.subscribe((index: number) => {
-    this.editMode = true;
-    this.editedItemNumber = index;
-    this.editedItem = this.slService.getIngredient(index);
-    this.slForm.setValue({
-      name: this.editedItem.name,
-      amount: this.editedItem.amount
-    });
+   this.subscription = this.slService.startedEditing.
+      subscribe((index: number) => {
+        this.editMode = true;
+        this.editedItemIndex = index;
+        this.namirnica = this.slService.getIngredient(index);
+        this.slForm.setValue({
+          name: this.namirnica.name,
+          amount: this.namirnica.amount
+        });
    });
 
   }
 
-
   onAddItem(form: FormControl) {
     const value = form.value;
-    console.log(value);
     const novaNamirnica = new Ingredient(value.name, value.amount);
-    this.slService.addIngredient(novaNamirnica);
+    if (this.editMode) {
+      this.slService.updateJednuNamirnicu(this.editedItemIndex, novaNamirnica);
+    } else {
+      this.slService.addIngredient(novaNamirnica);
+    }
   }
 
   ngOnDestroy() {

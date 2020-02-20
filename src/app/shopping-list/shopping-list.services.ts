@@ -5,7 +5,7 @@ import {Ingredient} from '../shared/ingredient.models';
 
 export class ShoppingListService {
   // ingredientChanged = new EventEmitter<Ingredient[]>(); stara izvedba
-  ingredientChanged = new Subject<Ingredient[]>();
+  namirnicaPromjenjena = new Subject<Ingredient[]>();
   startedEditing = new Subject<number>();
 
   private ingredients: Ingredient [] = [
@@ -13,7 +13,7 @@ export class ShoppingListService {
     new Ingredient('Tomatoes', 10)
   ];
 
-  getIngredients() {
+  listaSvihNamirnica() {
     return this.ingredients.slice();
   }
 
@@ -25,7 +25,7 @@ export class ShoppingListService {
     this.ingredients.push(data);
     // The slice() method returns the selected elements in an array, as a new array object.
     // this.ingredientChanged.emit(this.ingredients.slice()); stara izvedba
-    this.ingredientChanged.next(this.ingredients.slice());
+    this.namirnicaPromjenjena.next(this.ingredients.slice());
   }
 
   addIngridients(ingridients: Ingredient[]) {
@@ -34,7 +34,12 @@ export class ShoppingListService {
     console.log(this.ingredients);
     // this.ingredientChanged.emit(this.ingredients.slice()); stara izvedba
     // The slice() method returns the selected elements in an array, as a new array object.
-    this.ingredientChanged.next(this.ingredients.slice());
+    this.namirnicaPromjenjena.next(this.ingredients.slice());
+  }
+
+  updateJednuNamirnicu(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    this.namirnicaPromjenjena.next(this.ingredients.slice());
   }
 
 }

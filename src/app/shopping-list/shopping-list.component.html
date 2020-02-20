@@ -4,15 +4,13 @@
     <app-shopping-edit></app-shopping-edit>
     <hr>
 
-
-
-    <p>Lista namirnica</p>
     <ul class="list-group">
+      <p>Lista namirnica</p>
       <a
-     
+
         class="list-group-item"
         style="cursor: pointer"
-        *ngFor="let data of ingredients; let i = index"
+        *ngFor="let data of sveNamirnice; let i = index"
         (click)="onEditItem(i)"
         >
         {{data.name}} {{ data.amount}}
