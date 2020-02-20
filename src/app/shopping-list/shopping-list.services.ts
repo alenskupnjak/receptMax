@@ -6,6 +6,7 @@ import {Ingredient} from '../shared/ingredient.models';
 export class ShoppingListService {
   // ingredientChanged = new EventEmitter<Ingredient[]>(); stara izvedba
   ingredientChanged = new Subject<Ingredient[]>();
+  startedEditing = new Subject<number>();
 
   private ingredients: Ingredient [] = [
     new Ingredient('Apples', 5),
