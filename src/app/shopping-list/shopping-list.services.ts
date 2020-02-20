@@ -21,6 +21,11 @@ export class ShoppingListService {
     return this.ingredients[index];
   }
 
+  obrisiNamirnicu(index: number) {
+      this.ingredients.splice(index, 1);
+      this.namirnicaPromjenjena.next(this.ingredients.slice());
+  }
+
   addIngredient(data: Ingredient) {
     this.ingredients.push(data);
     // The slice() method returns the selected elements in an array, as a new array object.
