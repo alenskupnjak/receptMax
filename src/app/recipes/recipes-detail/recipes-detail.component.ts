@@ -1,5 +1,5 @@
 // import { Component, OnInit, Input } from '@angular/core';  verzija jedan
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Output} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
@@ -39,6 +39,10 @@ export class RecipesDetailComponent implements OnInit {
   dodajShoppingListi() {
     console.log(this.recipe.ingredients);
     this.recipeService.dodajNamirnicuShoppingListi(this.recipe.ingredients);
+  }
+
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
   }
 
 }

@@ -8,9 +8,9 @@
 <div class="row">
   <div class="col-xs-12">
     <h1>{{recipe.name}}</h1>
+    <p>Moj broj {{brojMoj}}</p>
   </div>
 </div>
-
 
 <div class="row">
   <div class="col-xs-12">
@@ -21,7 +21,7 @@
                <!-- <li><a href="#">Edit Recipe</a></li>
                <li><a href="#">Delete Recipe</a></li>         verzija jedan-->
                <li><a style="cursor: pointer;" (click)="onEditRecipe()">Editiraj recept</a></li>
-               <li><a style="cursor: pointer;">Obriši recept</a></li>
+               <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Obriši recept</a></li>
            </ul>
       </div>
 
@@ -39,8 +39,9 @@
     <p>app-recipes-detail</p>
     <ul class="list-group">
       <li class="list-group-item"
-      *ngFor="let data of recipe.ingredients">
-      {{data.name}} - {{data.amount}}</li>
+      *ngFor="let data of recipe.ingredients; let i = index"
+     >
+      {{data.name}} - {{data.amount}} Index={{i}}</li>
    </ul>
   </div>
 </div>
