@@ -1,5 +1,5 @@
 // import { Subject } from 'rxjs';
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import {Recipe} from '../recipes/recipe.model';
 import { Ingredient } from '../shared/ingredient.models';
@@ -12,6 +12,9 @@ export class RecipeServise {
   // recipeSelected = new Subject<Recipe>();
   // recipeSelected = new EventEmitter<Recipe>(); stara verzija
   recipeChanged = new Subject<Recipe[]>();
+  parznaLista = new Subject<number>();
+  listapocetak: number;
+
 
   private recipes: Recipe [] = [
     new Recipe(' Hamby', ' Mali obrok',
@@ -33,6 +36,8 @@ export class RecipeServise {
  constructor(private slService: ShoppingListService ) {}
 
   getRecipes() {
+    this.listapocetak = this.recipes.slice().length;
+    this.parznaLista.next(this.recipes.slice().length);
     return this.recipes.slice();  // slice radi kopiju polja, ne dira orginalno polje
   }
 
@@ -47,16 +52,19 @@ export class RecipeServise {
   addRecipe(newRecipe: Recipe) {
     this.recipes.push(newRecipe);
     this.recipeChanged.next(this.recipes.slice());
+    this.parznaLista.next(+this.recipes.slice().length);
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
     this.recipes[index] = newRecipe;
     this.recipeChanged.next(this.recipes.slice());
+    this.parznaLista.next(+this.recipes.slice().length );
   }
 
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
     this.recipeChanged.next(this.recipes.slice());
+    this.parznaLista.next(+this.recipes.slice().length);
   }
 
 }
