@@ -25,7 +25,7 @@ export class RecipeStartComponent implements OnInit, OnDestroy {
         }
         this.brojRecepata = duljinaListe;
         console.log('duljina liste=' + duljinaListe);
-        return duljinaListe;
+        return this.praznaLista;
       }
       );
   }

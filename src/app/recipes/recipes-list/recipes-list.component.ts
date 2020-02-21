@@ -1,15 +1,18 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { Recipe } from '../recipe.model';
 import { RecipeServise} from '../recipe.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipes-list',
   templateUrl: './recipes-list.component.html',
   styleUrls: ['./recipes-list.component.css']
 })
-export class RecipesListComponent implements OnInit {
+export class RecipesListComponent implements OnInit, OnDestroy {
   listaRecepta: Recipe [] = [];
+  subscription: Subscription;
   @Input() selektiraniRecept: number;
   @Input() index: number;
 
@@ -20,7 +23,7 @@ export class RecipesListComponent implements OnInit {
 
   ngOnInit() {
     this.listaRecepta = this.recipeService.getRecipes();
-    this.recipeService.recipeChanged.subscribe(
+    this.subscription = this.recipeService.recipeChanged.subscribe(
       (recipe: Recipe[]) => {
         this.listaRecepta = recipe;
       }
@@ -34,6 +37,10 @@ export class RecipesListComponent implements OnInit {
   onDeleteRecipe() {
     this.recipeService.deleteRecipe(this.index);
     this.router.navigate(['/recipes']);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
