@@ -8,20 +8,29 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./recipe-start.component.css']
 })
 export class RecipeStartComponent implements OnInit, OnDestroy {
-  praznaLista = 'Odaberi jedan recept!';
+  praznaLista: string;
   brojRecepata: number;
   subscription: Subscription;
 
   constructor(private recipeServis: RecipeServise) { }
 
   ngOnInit() {
+    this.brojRecepata = this.recipeServis.listaPocetak.valueOf();
+    console.log('brojRecaepata=' + this.brojRecepata);
+    if (this.brojRecepata === 0) {
+      this.praznaLista = 'Upisi jedan recept';
+    } else {
+      this.praznaLista = '*** Odaberi 1 recept ***';
+    }
+
+
     this.subscription =  this.recipeServis.parznaLista.subscribe(
       (duljinaListe: number) => {
         console.log('duljina=' + duljinaListe);
         if (duljinaListe === 0) {
-          this.praznaLista = 'Upisi 1 recept';
+          this.praznaLista = '--- Upisi 1 recept ---';
         } else {
-          this.praznaLista = 'Odaberi 1 recept';
+          this.praznaLista = '--- Odaberi 1 recept ---';
         }
         this.brojRecepata = duljinaListe;
         console.log('duljina liste=' + duljinaListe);
@@ -31,7 +40,7 @@ export class RecipeStartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

@@ -13,7 +13,7 @@ export class RecipeServise {
   // recipeSelected = new EventEmitter<Recipe>(); stara verzija
   recipeChanged = new Subject<Recipe[]>();
   parznaLista = new Subject<number>();
-  listapocetak: number;
+  listaPocetak: number;
 
 
   private recipes: Recipe [] = [
@@ -36,7 +36,7 @@ export class RecipeServise {
  constructor(private slService: ShoppingListService ) {}
 
   getRecipes() {
-    this.listapocetak = this.recipes.slice().length;
+    this.listaPocetak = this.recipes.slice().length;
     this.parznaLista.next(this.recipes.slice().length);
     return this.recipes.slice();  // slice radi kopiju polja, ne dira orginalno polje
   }
@@ -53,6 +53,7 @@ export class RecipeServise {
     this.recipes.push(newRecipe);
     this.recipeChanged.next(this.recipes.slice());
     this.parznaLista.next(+this.recipes.slice().length);
+    this.listaPocetak = this.recipes.slice().length;
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
@@ -65,6 +66,7 @@ export class RecipeServise {
     this.recipes.splice(index, 1);
     this.recipeChanged.next(this.recipes.slice());
     this.parznaLista.next(+this.recipes.slice().length);
+    this.listaPocetak = this.recipes.splice(index, 1).length;
   }
 
 }
