@@ -4,12 +4,14 @@ import { EventEmitter, Injectable } from '@angular/core';
 import {Recipe} from '../recipes/recipe.model';
 import { Ingredient } from '../shared/ingredient.models';
 import { ShoppingListService } from '../shopping-list/shopping-list.services';
+import { Subject } from 'rxjs';
 
 
 @Injectable()
 export class RecipeServise {
   // recipeSelected = new Subject<Recipe>();
-  // recipeSelected = new EventEmitter<Recipe>(); stra verzija
+  // recipeSelected = new EventEmitter<Recipe>(); stara verzija
+  recipeChanged = new Subject<Recipe[]>();
 
   private recipes: Recipe [] = [
     new Recipe(' Hamby', ' Mali obrok',
@@ -40,6 +42,16 @@ export class RecipeServise {
 
   dodajNamirnicuShoppingListi(ingredients: Ingredient[]) {
     this.slService.addIngridients(ingredients);
+  }
+
+  addRecipe(newRecipe: Recipe) {
+    this.recipes.push(newRecipe);
+    this.recipeChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipeChanged.next(this.recipes.slice());
   }
 
 }
