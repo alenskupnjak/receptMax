@@ -27,4 +27,8 @@ export class HeaderComponent implements OnInit {
     this.dataStorageService.storeRecipes();
   }
 
+  usnimiRecepte() {
+    this.dataStorageService.usnimiRecepteIzBaze();
+  }
+
 }
