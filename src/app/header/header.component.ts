@@ -1,6 +1,7 @@
 // verzija prva
 // import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
   // verzija prva
   // @Output() aktivniMeni = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
   }
@@ -21,5 +22,9 @@ export class HeaderComponent implements OnInit {
   //   console.log('header.component.com - ' + feature);
   //   this.aktivniMeni.emit(feature);
   // }
+
+  onSaveData() {
+    this.dataStorageService.storeRecipes();
+  }
 
 }
