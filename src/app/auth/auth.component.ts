@@ -10,6 +10,10 @@ import { AuthService } from './auth.service';
 
 export class AuthComponent {
 isLoginMode = true;
+isLoading = false;
+error = null;
+
+
 
 constructor(private authServis: AuthService) {}
 
@@ -23,14 +27,18 @@ onSubmit(formaPodaci: NgForm) {
   }
   const email = formaPodaci.value.email;
   const password = formaPodaci.value.password;
+  this.isLoading = true;
 
   if (this.isLoginMode) {
     // ...
   } else {
     this.authServis.signup(email, password).subscribe(resData => {
       console.log(resData);
+      this.isLoading = false;
     }, error => {
+      this.error = 'Dogodila se greška prilikom  spajanja na bazu!';
       console.log(error);
+      this.isLoading = false;
     });
   }
 
