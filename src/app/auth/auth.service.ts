@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
@@ -26,18 +26,7 @@ export class AuthService {
         email: email,
         password: password,
         returnSecureToken: true
-      }).pipe(catchError(errorRes => {
-        let errorMesage = ' Nepoznata greška';
-        if (!errorRes.error || !errorRes.error.error) {
-          return throwError(errorMesage);
-        }
-        switch (errorRes.error.error.message) {
-          case 'EMAIL_EXISTS':
-          errorMesage = 'E-mail adresa već postoji!';
-        }
-        return throwError(errorMesage);
-      }
-      ));
+      }).pipe(catchError(this.handleError));
   }
 
     login(email: string, password: string) {
@@ -48,9 +37,26 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }
-      );
+      ).pipe(catchError(this.handleError));
     }
 
-
+    private handleError( errorRes: HttpErrorResponse) {
+      let errorMesage = ' Nepoznata greška';
+      if (!errorRes.error || !errorRes.error.error) {
+        return throwError(errorMesage);
+      }
+      switch (errorRes.error.error.message) {
+        case 'EMAIL_EXISTS':
+          errorMesage = 'E-mail adresa već postoji!';
+          break;
+        case 'EMAIL_NOT_FOUND':
+          errorMesage = 'E-mail nije pronađen!';
+          break;
+        case 'INVALID_PASSWORD':
+          errorMesage = 'Krivi Password';
+          break;
+      }
+      return throwError(errorMesage);
+    }
 
 }
