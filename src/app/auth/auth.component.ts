@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -10,6 +11,11 @@ isLoginMode = true;
 
 onSwitchMode() {
   this.isLoginMode = !this.isLoginMode;
+}
+
+onSubmit(formaPodaci: NgForm) {
+ console.log(formaPodaci.value);
+ formaPodaci.reset();
 }
 
 }
