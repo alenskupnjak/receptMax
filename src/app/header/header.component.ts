@@ -1,5 +1,4 @@
-// verzija prva
-// import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+// import { Component, OnInit, EventEmitter, Output } from '@angular/core'; verzija prva
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 
