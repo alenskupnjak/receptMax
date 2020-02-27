@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { stringify } from 'querystring';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 
 interface AuthResponseData {
@@ -24,7 +25,18 @@ export class AuthService {
         email: email,
         password: password,
         returnSecureToken: true
-      });
+      }).pipe(catchError(errorRes => {
+        let errorMesage = ' Nepoznata greška';
+        if (!errorRes.error || !errorRes.error.error) {
+          return throwError(errorMesage);
+        }
+        switch (errorRes.error.error.message) {
+          case 'EMAIL_EXISTS':
+          errorMesage = 'E-mail adresa već postoji!';
+        }
+        return throwError(errorMesage);
+      }
+      ));
   }
 
 
