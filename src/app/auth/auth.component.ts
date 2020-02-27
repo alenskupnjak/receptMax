@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { AuthService } from './auth.service';
+import { AuthService, AuthResponseData  } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -29,17 +30,22 @@ onSubmit(formaPodaci: NgForm) {
   const password = formaPodaci.value.password;
   this.isLoading = true;
 
+  let authObs: Observable<AuthResponseData>;
+
   if (this.isLoginMode) {
-    // ...
+    authObs = this.authServis.login(email, password);
   } else {
-    this.authServis.signup(email, password).subscribe(resData => {
-      console.log(resData);
-      this.isLoading = false;
-    }, errorMessage => {
-        this.error = errorMessage;
-        this.isLoading = false;
-    });
+    authObs = this.authServis.signup(email, password);
   }
+
+  authObs.subscribe(resData => {
+    console.log(resData);
+    this.isLoading = false;
+  }, errorMessage => {
+      this.error = errorMessage;
+      this.isLoading = false;
+  });
+
 
   formaPodaci.reset();
 }

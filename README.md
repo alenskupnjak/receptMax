@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Opis
 
-FireBase TecajMax (autorizirana baza podataka!)
+FireBase receptiMax (autorizirana baza podataka!)
 
 ## Code scaffolding
 
