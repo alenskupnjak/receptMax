@@ -4,6 +4,7 @@ import { stringify } from 'querystring';
 
 
 interface AuthResponseData {
+  kind: string;
   idToken: string;
   email: string;
   refreshToken: string;
@@ -16,9 +17,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  signup (email: string, password: string) {
+  signup(email: string, password: string) {
     return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCi6AQgL7ObCD4Fq1kHnkirAx0xI2bnPCo',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCi6AQgL7ObCD4Fq1kHnkirAx0xI2bnPCo',
       {
         email: email,
         password: password,
