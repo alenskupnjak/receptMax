@@ -29,8 +29,8 @@ export class AuthService {
       }).pipe(catchError(this.handleError));
   }
 
-    login(email: string, password: string) {
-      return this.http.post<AuthResponseData>(
+  login(email: string, password: string) {
+    return this.http.post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCi6AQgL7ObCD4Fq1kHnkirAx0xI2bnPCo',
       {
         email: email,
@@ -38,7 +38,7 @@ export class AuthService {
         returnSecureToken: true
       }
       ).pipe(catchError(this.handleError));
-    }
+  }
 
     private handleError( errorRes: HttpErrorResponse) {
       let errorMesage = ' Nepoznata greška';
