@@ -6,18 +6,21 @@
 
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <!-- <li><a href="#" (click)="onSelect('recept')">Recept</a></li>           Verzija prva
-          <li><a href="#" (click)="onSelect('shopingLista')">Kupovna lista</a></li>   Verzija prva -->
-          <li routerLinkActive="active"><a routerLink="/recipes">Recepti</a></li>
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="isAutenticated">
+            <a routerLink="/recipes" >Recepti</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="isAutenticated">
             <a routerLink="/shopping-list">Kupovna lista</a>
           </li>
-          <li routerLinkActive="active">
-              <a routerLink="/autorizacija">Logiranje</a>
+          <li routerLinkActive="active" *ngIf="!isAutenticated">
+            <a routerLink="/autorizacija">Logiranje</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown" appDropdown>
+          <li *ngIf="isAutenticated">
+            <a style="cursor: pointer;">Logout</a>
+          </li>
+          <li class="dropdown" appDropdown *ngIf="isAutenticated">
             <a class="dropdown-toggle" role="button" style="cursor: pointer;">Upravljanje<span class="caret"></span></a>
             <!-- <a href="#" class="dropdown-toggle" role="button" >Upravljanje<span class="caret"></span></a>    verzija jedan-->
              <ul class="dropdown-menu">

@@ -40,7 +40,7 @@ export class AuthService {
         resData.expiresIn = resData.expiresIn + 1;
         console.log(resData.expiresIn);
         console.log(resData);
-        this.user.next(userData);  // ovdje je pospremljen novi user i omogucuje da se novi korisnik moze logirati
+        this.user.next(userData);  // ovim obavještavamo sve zainteresirane da se je nešto promjenilo na useru
       }), tap(resData => {
         this.handleAutentication(resData.email, resData.localId, resData.idToken, resData.expiresIn);
       })
@@ -57,7 +57,11 @@ export class AuthService {
       }
       ).pipe(catchError(this.handleError), tap(resData => {
         this.handleAutentication(resData.email, resData.localId, resData.idToken, resData.expiresIn);
-      }));
+      }), tap(resData => {
+        console.log( 'tap 2 login dio za vjezbu');
+        console.log(resData);
+      })
+      );
   }
 
   private handleAutentication(email: string, userId: string, tokenn: string, expiresIn: string) {
