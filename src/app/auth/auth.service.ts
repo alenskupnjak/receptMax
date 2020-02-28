@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError, Subject } from 'rxjs';
+import { User } from './user.model';
 
 
 export interface AuthResponseData {
@@ -17,6 +18,7 @@ export interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
+  user = new Subject<User>();
   constructor(private http: HttpClient) {}
 
   signup(email: string, password: string) {
@@ -26,7 +28,23 @@ export class AuthService {
         email: email,
         password: password,
         returnSecureToken: true
-      }).pipe(catchError(this.handleError));
+      }).pipe(catchError(this.handleError), tap(resData => {
+        console.log('U tap 1  sam i ovoj dio sluzi za vjezbu');
+        const expirationDate1 = new Date();
+        console.log('Trenutni datum i vrijeme: ' + expirationDate1);
+        const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn, 10) * 1000 );
+        console.log('Trenutni datum i vrijeme: ' + expirationDate);
+        const userData = new User(resData.email, resData.localId, resData.idToken, expirationDate);
+        console.log(userData);
+        console.log('tap Email=' + resData.email);
+        resData.expiresIn = resData.expiresIn + 1;
+        console.log(resData.expiresIn);
+        console.log(resData);
+        this.user.next(userData);  // ovdje je pospremljen novi user i omogucuje da se novi korisnik moze logirati
+      }), tap(resData => {
+        this.handleAutentication(resData.email, resData.localId, resData.idToken, resData.expiresIn);
+      })
+      );
   }
 
   login(email: string, password: string) {
@@ -37,10 +55,21 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }
-      ).pipe(catchError(this.handleError));
+      ).pipe(catchError(this.handleError), tap(resData => {
+        this.handleAutentication(resData.email, resData.localId, resData.idToken, resData.expiresIn);
+      }));
   }
 
-    private handleError( errorRes: HttpErrorResponse) {
+  private handleAutentication(email: string, userId: string, tokenn: string, expiresIn: string) {
+    console.log('U handleAutentication sam');
+    const expirationDate = new Date(new Date().getTime() + parseInt(expiresIn, 10) * 1000 );
+    const user = new User(email, userId, tokenn, expirationDate);
+    console.log(this.user);
+    this.user.next(user);
+  }
+
+
+  private handleError( errorRes: HttpErrorResponse) {
       let errorMesage = ' Nepoznata greška';
       if (!errorRes.error || !errorRes.error.error) {
         return throwError(errorMesage);
@@ -57,6 +86,6 @@ export class AuthService {
           break;
       }
       return throwError(errorMesage);
-    }
+  }
 
 }

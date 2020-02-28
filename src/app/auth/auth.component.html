@@ -18,7 +18,7 @@
         type="email" 
         id="email"
         name="email"
-        ngModel
+        [(ngModel)]="ulazniPodaci.email"
         required
         email
         minlength="6"
@@ -30,7 +30,7 @@
         type="password" 
         id="password" 
         name="password"
-        ngModel
+        [(ngModel)]="ulazniPodaci.password"
         required
         class="form-control">
       </div>

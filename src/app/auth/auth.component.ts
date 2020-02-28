@@ -10,9 +10,13 @@ import { Observable } from 'rxjs';
 })
 
 export class AuthComponent {
-isLoginMode = true;
+isLoginMode = false;
 isLoading = false;
 error = null;
+ulazniPodaci = {
+  email: 'q@q.com',
+  password: '123456'
+};
 
 
 
@@ -39,7 +43,10 @@ onSubmit(formaPodaci: NgForm) {
   }
 
   authObs.subscribe(resData => {
+    console.log('U auth-component authObs');
     console.log(resData);
+    console.log('Email: ' + resData.email);
+    console.log('expiredin: ' + resData.expiresIn);
     this.isLoading = false;
   }, errorMessage => {
       this.error = errorMessage;
@@ -47,7 +54,7 @@ onSubmit(formaPodaci: NgForm) {
   });
 
 
-  formaPodaci.reset();
+  // formaPodaci.reset();
 }
 
 }
