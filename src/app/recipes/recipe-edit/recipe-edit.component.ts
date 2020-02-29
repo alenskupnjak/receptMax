@@ -35,11 +35,13 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit() {
     const noviRecept = new Recipe(
+      // tslint:disable-next-line:no-string-literal
       this.recipeForm.value['name'],
+      // tslint:disable-next-line:no-string-literal
       this.recipeForm.value['description'],
       this.recipeForm.value['imagePath'],
       this.recipeForm.value['ingredients']
-      )
+      );
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, noviRecept);
     } else {
@@ -86,14 +88,15 @@ export class RecipeEditComponent implements OnInit {
   }
 
   get controls() { // a getter!
-    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+    return (<FormArray> this.recipeForm.get('ingredients')).controls;
   }
 
   onAddIngridient() {
-    (<FormArray>this.recipeForm.get('ingredients')).push(
+    (<FormArray> this.recipeForm.get('ingredients')).push(
       new FormGroup ({
         name: new FormControl(null, Validators.required),
-        amount: new FormControl(null,[
+        amount: new FormControl(null,
+        [
           Validators.required,
           Validators.pattern(/^[1-9]+[0-9]*$/)
         ])

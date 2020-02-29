@@ -87,5 +87,6 @@
   },
   "rulesDirectory": [
     "codelyzer"
-  ]
+  ],
+  "no-string-literal": true
 }
