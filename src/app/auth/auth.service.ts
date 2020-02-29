@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
+
 import { User } from './user.model';
 
 
@@ -19,7 +21,8 @@ export interface AuthResponseData {
 export class AuthService {
  user = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private router: Router) {}
 
   signup(email: string, password: string) {
     return this.http.post<AuthResponseData>(
@@ -39,8 +42,8 @@ export class AuthService {
         console.log('tap Email=' + resData.email);
         resData.expiresIn = resData.expiresIn + 1;
         console.log(resData.expiresIn);
-        console.log(resData);
-        this.user.next(userData);  // ovim obavještavamo sve zainteresirane da se je nešto promjenilo na useru
+        console.log(this.user);
+        // this.user.next(userData); ovim obavještavamo sve zainteresirane da se je nešto promjenilo na useru
       }), tap(resData => {
         this.handleAutentication(resData.email, resData.localId, resData.idToken, resData.expiresIn);
       })
@@ -54,21 +57,22 @@ export class AuthService {
         email: email,
         password: password,
         returnSecureToken: true
-      }
-      ).pipe(catchError(this.handleError), tap(resData => {
+      }).
+      pipe(catchError(this.handleError), tap(resData => {
         this.handleAutentication(resData.email, resData.localId, resData.idToken, resData.expiresIn);
-      }), tap(resData => {
-        console.log( 'tap 2 login dio za vjezbu');
-        console.log(resData);
       })
       );
   }
 
-  private handleAutentication(email: string, userId: string, tokenn: string, expiresIn: string) {
-    console.log('U handleAutentication sam');
+
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+  }
+
+  private handleAutentication(email: string, userId: string, token: string, expiresIn: string) {
     const expirationDate = new Date(new Date().getTime() + parseInt(expiresIn, 10) * 1000 );
-    const user = new User(email, userId, tokenn, expirationDate);
-    console.log(this.user);
+    const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
   }
 

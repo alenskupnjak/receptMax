@@ -16,7 +16,6 @@ export class RecipeStartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.brojRecepata = this.recipeServis.listaPocetak.valueOf();
-    console.log('brojRecaepata=' + this.brojRecepata);
     if (this.brojRecepata === 0) {
       this.praznaLista = 'Upisi jedan recept';
     } else {

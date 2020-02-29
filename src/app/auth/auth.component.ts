@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { AuthService, AuthResponseData  } from './auth.service';
 
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -15,6 +15,7 @@ export class AuthComponent {
 isLoginMode = false;
 isLoading = false;
 error = null;
+
 ulazniPodaci = {
   email: 'q@q.com',
   password: '123456'
@@ -46,10 +47,7 @@ onSubmit(formaPodaci: NgForm) {
   }
 
   authObs.subscribe(resData => {
-    console.log('U auth-component authObs i ovo mi sluzi za vjezbu');
     console.log(resData);
-    console.log('Email: ' + resData.email);
-    console.log('expiredin: ' + resData.expiresIn);
     this.isLoading = false;
     this.router.navigate(['/recipes']);
   }, errorMessage => {
