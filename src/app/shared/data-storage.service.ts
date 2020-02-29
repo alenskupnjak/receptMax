@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, tap, take, exhaustMap } from 'rxjs/operators';
 
 import { RecipeServise } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({providedIn: 'root'})
 
 export class DataStorageService {
 
   constructor(private http: HttpClient,
-              private recipeService: RecipeServise)  {}
+              private recipeService: RecipeServise,
+              private authService: AuthService)  {}
 
 
   storeRecipes() {
@@ -23,16 +25,24 @@ export class DataStorageService {
 
 
   usnimiRecepteIzBaze() {
-    this.http.get<Recipe[]>('https://httpmax-8a9bc.firebaseio.com/recipes.json')
-    .pipe(map(recipes => {
-      return recipes.map(recipe => {
+    return this.authService.user.pipe(take(1), exhaustMap(user => {
+      return this.http.get<Recipe[]>
+      ('https://httpmax-8a9bc.firebaseio.com/recipes.json',
+        {
+        params: new HttpParams().set('auth', user.token)
+        });
+    }),
+    map(recipes => {
+      return recipes.map( recipe => {
         // Ako nema namirnica u receptu u bazi, ovdje dodajemo prazno polje
         return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
       });
-    }))
-    .subscribe(recipes => {
+    }), tap(recipes => {
       this.recipeService.setRecipe(recipes);
-    });
+    })
+    );
+
+
   }
 
 }
