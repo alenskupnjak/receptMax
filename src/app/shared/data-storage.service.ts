@@ -25,12 +25,17 @@ export class DataStorageService {
 
 
   usnimiRecepteIzBaze() {
-    return this.authService.user.pipe(take(1), exhaustMap(user => {
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        console.log('**********');
+        console.log(user);
       return this.http.get<Recipe[]>
-      ('https://httpmax-8a9bc.firebaseio.com/recipes.json',
-        {
+      ('https://httpmax-8a9bc.firebaseio.com/recipes.json'
+      , {
         params: new HttpParams().set('auth', user.token)
-        });
+        }
+        );
     }),
     map(recipes => {
       return recipes.map( recipe => {
@@ -40,7 +45,9 @@ export class DataStorageService {
     }), tap(recipes => {
       this.recipeService.setRecipe(recipes);
     })
-    );
+    ).subscribe(response =>{
+      console.log(response);
+    });
 
 
   }
