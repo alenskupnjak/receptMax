@@ -1,8 +1,9 @@
 import { Subject } from 'rxjs';
 import {Ingredient} from '../shared/ingredient.models';
+import { Injectable } from '@angular/core';
 // import { EventEmitter } from '@angular/core'; stara izvedba
 
-
+@Injectable({providedIn: 'root'})
 export class ShoppingListService {
   // ingredientChanged = new EventEmitter<Ingredient[]>(); stara izvedba
   namirnicaPromjenjena = new Subject<Ingredient[]>();
