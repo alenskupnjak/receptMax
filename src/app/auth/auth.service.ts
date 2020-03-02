@@ -43,7 +43,6 @@ export class AuthService {
         resData.expiresIn = resData.expiresIn + 1;
         console.log(resData.expiresIn);
         console.log(this.user);
-        // this.user.next(userData); ovim obavještavamo sve zainteresirane da se je nešto promjenilo na useru
       }), tap(resData => {
         this.handleAutentication(resData.email, resData.localId, resData.idToken, resData.expiresIn);
       })
@@ -70,10 +69,33 @@ export class AuthService {
     this.router.navigate(['/auth']);
   }
 
+  autoLogin() {
+    const userData: {
+        email: string,
+        id: string,
+        _token: string,
+        _tokenExpirationDate: Date
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date (userData._tokenExpirationDate)
+    );
+
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+    }
+  }
+
   private handleAutentication(email: string, userId: string, token: string, expiresIn: string) {
     const expirationDate = new Date(new Date().getTime() + parseInt(expiresIn, 10) * 1000 );
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
 
