@@ -1,4 +1,3 @@
-// import { Component, OnInit, Input } from '@angular/core';  verzija jedan
 import { Component, OnInit, Output} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
