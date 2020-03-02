@@ -5,25 +5,20 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { RecipeServise } from './recipes/recipe.service';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthComponent } from './auth/auth.component';
-import { LoadingSpinnerComponent } from './shared/loading-spiner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { AlertComponent } from './shared/alert/alert.component';
 import { RecipeModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    DropdownDirective,
     AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent
   ],
   imports: [
     BrowserModule,  // pojavljuje se samo u app module
@@ -32,7 +27,8 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
     HttpClientModule,
     AppRoutingModule,
     RecipeModule,
-    ShoppingListModule
+    ShoppingListModule,
+    SharedModule
   ],
   providers: [RecipeServise,
     ShoppingListService,
