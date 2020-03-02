@@ -12,51 +12,55 @@ import { AuthService, AuthResponseData  } from './auth.service';
 })
 
 export class AuthComponent {
-isLoginMode = false;
-isLoading = false;
-error = null;
+  isLoginMode = false;
+  isLoading = false;
+  error = null;
 
-ulazniPodaci = {
+  ulazniPodaci = {
   email: 'q@q.com',
   password: '123456'
-};
+  };
 
 
 
-constructor(private authServis: AuthService,
-            private router: Router) {}
+  constructor(private authServis: AuthService,
+              private router: Router) {}
 
-onSwitchMode() {
-  this.isLoginMode = !this.isLoginMode;
-}
-
-onSubmit(formaPodaci: NgForm) {
-  if (!formaPodaci.valid) {
-    return;
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
   }
-  const email = formaPodaci.value.email;
-  const password = formaPodaci.value.password;
-  this.isLoading = true;
 
-  let authObs: Observable<AuthResponseData>;
+  onSubmit(formaPodaci: NgForm) {
+    if (!formaPodaci.valid) {
+       return;
+    }
+    const email = formaPodaci.value.email;
+    const password = formaPodaci.value.password;
+    this.isLoading = true;
 
-  if (this.isLoginMode) {
+    let authObs: Observable<AuthResponseData>;
+
+    if (this.isLoginMode) {
     authObs = this.authServis.login(email, password);
-  } else {
+      } else {
     authObs = this.authServis.signup(email, password);
-  }
+    }
 
-  authObs.subscribe(resData => {
-    console.log(resData);
-    this.isLoading = false;
-    this.router.navigate(['/recipes']);
-  }, errorMessage => {
+    authObs.subscribe(resData => {
+      console.log(resData);
+      this.isLoading = false;
+      this.router.navigate(['/recipes']);
+    }, errorMessage => {
       this.error = errorMessage;
       this.isLoading = false;
-  });
+    });
 
 
   // formaPodaci.reset();
+}
+
+onHandleError() {
+ this.error = null;
 }
 
 }
