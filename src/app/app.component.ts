@@ -13,14 +13,4 @@ constructor(private authSeervice: AuthService) {}
     this.authSeervice.autoLogin();
   }
 
-
-
-
-
-
-
-
-
-
-
 }
