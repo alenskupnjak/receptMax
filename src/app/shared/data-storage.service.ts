@@ -30,6 +30,7 @@ export class DataStorageService {
         ).pipe(
           map(recipes => {
             return recipes.map( recipe => {
+              // Prije povlacena podataka pozivam Interceptor!
               // Ako nema namirnica u receptu u bazi, ovdje dodajemo prazno polje
               return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
             });

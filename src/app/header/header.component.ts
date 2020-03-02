@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private authServis: AuthService) { }
 
   ngOnInit() {
+   // ako user nije prijavlen ili logiran izbacije false i ne moze se pristipiti stranici
     this.userSub = this.authServis.user.subscribe(user => {
       this.isAutenticated = user ? true : false;
     });
