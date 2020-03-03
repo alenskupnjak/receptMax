@@ -9,7 +9,7 @@ import { RecipeServise } from './recipes/recipe.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { RecipeModule } from './recipes/recipes.module';
+import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -25,7 +25,7 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    RecipeModule,
+    // RecipesModule,  obrisano jer je naveden prebacen u layzi mode
     ShoppingListModule,
     SharedModule
   ],
