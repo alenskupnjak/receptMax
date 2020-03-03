@@ -26,7 +26,8 @@ export class RecipesListComponent implements OnInit, OnDestroy {
     this.subscription = this.recipeService.recipeChanged.subscribe(
       (recipe: Recipe[]) => {
         this.listaRecepta = recipe;
-        return this.recipeService.parznaLista.next('daj');
+        this.recipeService.listaPocetak = this.listaRecepta.length;
+        this.recipeService.parznaLista.next(this.listaRecepta.length);
       }
     );
   }
@@ -36,6 +37,7 @@ export class RecipesListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteRecipe() {
+    this.recipeService.parznaLista.next(55);
     this.recipeService.deleteRecipe(this.index);
     this.router.navigate(['/recipes']);
   }

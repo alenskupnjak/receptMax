@@ -11,20 +11,27 @@ export class RecipeStartComponent implements OnInit, OnDestroy {
   praznaLista: string;
   brojRecepata: number;
   subscription: Subscription;
+  subsBrojRecepata: Subscription;
 
   constructor(private recipeServis: RecipeServise) { }
 
   ngOnInit() {
-    this.brojRecepata = this.recipeServis.listaPocetak.valueOf();
-    if (this.brojRecepata === 0) {
-      this.praznaLista = 'Upisi jedan recept';
+    this.brojRecepata = this.recipeServis.listaPocetak;
+    this.subsBrojRecepata = this.recipeServis.brojRecepata.subscribe(
+      data => {
+        this.brojRecepata = data;
+      }
+    );
+    // console.log('brojRecepata vani==' + this.brojRecepata);
+    if (this.brojRecepata == 0) {
+      this.praznaLista = 'Upiši jedan recept!';
     } else {
       this.praznaLista = '*** Odaberi 1 recept ***';
     }
 
     this.subscription =  this.recipeServis.parznaLista.subscribe(
         (data) => {
-          this.praznaLista = data;
+          this.brojRecepata = data;
         });
     // this.subscription =  this.recipeServis.parznaLista.subscribe(
     //   (duljinaListe: number) => {
@@ -43,6 +50,7 @@ export class RecipeStartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.subsBrojRecepata.unsubscribe();
   }
 
 }

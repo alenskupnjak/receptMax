@@ -8,13 +8,12 @@
       <p>Lista namirnica</p>
       <a
 
-        class="list-group-item"
+        class="list-group-item col-xs-12"
         style="cursor: pointer"
         *ngFor="let data of sveNamirnice; let i = index"
         (click)="onEditItem(i)"
         >
-        {{data.name}} {{ data.amount}}
-        <p>app-shopping-list</p>
+        {{data.name}}    Količina={{ data.amount}}
       </a>
     </ul>
   </div>

@@ -10,7 +10,6 @@
           [disabled]="!recipeForm.valid">Save</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
         </div>
-        <h2>Recipe-edit.component</h2>
 
           <div class="row">
             <div class="col-xs-12">
@@ -41,7 +40,7 @@
 
           <div class="row">
             <div class="col-xs-12">
-              <img [src]="imagePath.value" class="img-responsive">
+              <img [src]="imagePath.value" class="img-responsive" style="max-height: 50px;">
             </div>
           </div>
 
