@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class RecipeServise {
   recipeChanged = new Subject<Recipe[]>();
-  parznaLista = new Subject<number>();
+  parznaLista = new Subject<string>();
   listaPocetak: number;
 
 
@@ -28,7 +28,7 @@ export class RecipeServise {
 
   getRecipes() {
     this.listaPocetak = this.recipes.slice().length;
-    this.parznaLista.next(this.recipes.slice().length);
+    this.parznaLista.next('daj');
     return this.recipes.slice();  // slice radi kopiju polja, ne dira orginalno polje
   }
 
@@ -43,21 +43,20 @@ export class RecipeServise {
   addRecipe(newRecipe: Recipe) {
     this.recipes.push(newRecipe);
     this.recipeChanged.next(this.recipes.slice());
-    this.parznaLista.next(+this.recipes.slice().length);
+    this.parznaLista.next('2');
     this.listaPocetak = this.recipes.slice().length;
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
     this.recipes[index] = newRecipe;
     this.recipeChanged.next(this.recipes.slice());
-    this.parznaLista.next(+this.recipes.slice().length );
+    this.parznaLista.next('1' );
   }
 
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
     this.recipeChanged.next(this.recipes.slice());
-    this.parznaLista.next(+this.recipes.slice().length);
-    this.listaPocetak = this.recipes.splice(index, 1).length;
+    this.parznaLista.next('+this.recipes.slice().length');
   }
 
 }
