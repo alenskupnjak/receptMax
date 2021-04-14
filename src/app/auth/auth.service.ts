@@ -65,7 +65,7 @@ export class AuthService {
   }
 
 // prilokom Logouta setiramo User da ga nema, vracamo se na stranicu za registaraciju
-// brise coocie userData koji je pospremljen ako je cec bio ulogiran
+// brise coocie userData koji je pospremljen ako je vec bio ulogiran
   logout() {
     this.user.next(null);
     this.router.navigate(['/auth']);

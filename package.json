@@ -2,10 +2,7 @@
   "name": "recept-max",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start4200": "ng serve",
-    "start4141": "ng serve --port 4141",
-    "start3000": "ng serve --port 3000",
+    "start5006": "ng serve --port 5006 -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,7 +20,7 @@
     "@angular/router": "~8.2.14",
     "bootstrap": "^3.4.1",
     "rxjs": "~6.4.0",
-    "tslib": "^1.10.0",
+    "tslib": "^1.11.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
